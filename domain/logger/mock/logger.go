@@ -7,7 +7,7 @@ package mock
 import (
 	reflect "reflect"
 
-	logger "github.com/Pranc1ngPegasus/golang-template/domain/logger"
+	logger "github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	gomock "github.com/golang/mock/gomock"
 )
 

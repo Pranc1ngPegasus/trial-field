@@ -3,8 +3,8 @@ package configuration
 import (
 	"fmt"
 
-	domain "github.com/Pranc1ngPegasus/golang-template/domain/configuration"
-	"github.com/Pranc1ngPegasus/golang-template/domain/logger"
+	domain "github.com/Pranc1ngPegasus/trial-field/domain/configuration"
+	"github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/google/wire"
 	"github.com/spf13/viper"
 )

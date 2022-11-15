@@ -7,7 +7,7 @@ package mock
 import (
 	reflect "reflect"
 
-	configuration "github.com/Pranc1ngPegasus/golang-template/domain/configuration"
+	configuration "github.com/Pranc1ngPegasus/trial-field/domain/configuration"
 	gomock "github.com/golang/mock/gomock"
 )
 
