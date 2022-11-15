@@ -1,0 +1,16 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:14.3-alpine3.15
+    container_name: trial-field-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: trial-field
+      POSTGRES_USER: trial-field
+      POSTGRES_PASSWORD: p@ssw0rd
+    networks:
+      - trial-field-network
+networks:
+  trial-field-network:
+    name: trial-field-network
