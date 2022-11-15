@@ -7,7 +7,10 @@
 package main
 
 import (
-	configuration2 "github.com/Pranc1ngPegasus/trial-field/domain/configuration"
+	"net/http"
+
+	"github.com/Pranc1ngPegasus/trial-field/adapter/handler"
+	"github.com/Pranc1ngPegasus/trial-field/adapter/server"
 	logger2 "github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/Pranc1ngPegasus/trial-field/infra/configuration"
 	"github.com/Pranc1ngPegasus/trial-field/infra/logger"
@@ -24,9 +27,11 @@ func initialize() (*app, error) {
 	if err != nil {
 		return nil, err
 	}
+	handlerHandler := handler.NewHandler()
+	httpServer := server.NewServer(loggerLogger, configurationConfiguration, handlerHandler)
 	mainApp := &app{
 		logger: loggerLogger,
-		config: configurationConfiguration,
+		server: httpServer,
 	}
 	return mainApp, nil
 }
@@ -35,5 +40,5 @@ func initialize() (*app, error) {
 
 type app struct {
 	logger logger2.Logger
-	config configuration2.Configuration
+	server *http.Server
 }
