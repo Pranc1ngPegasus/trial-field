@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/Pranc1ngPegasus/trial-field/adapter/handler"
+	"github.com/Pranc1ngPegasus/trial-field/adapter/resolver"
 	"github.com/Pranc1ngPegasus/trial-field/adapter/server"
 	domainlogger "github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/Pranc1ngPegasus/trial-field/infra/configuration"
@@ -24,6 +25,8 @@ func initialize() (*app, error) {
 		logger.NewLoggerSet,
 
 		configuration.NewConfigurationSet,
+
+		resolver.NewSchema,
 
 		handler.NewHandlerSet,
 
