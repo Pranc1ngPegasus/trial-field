@@ -11,8 +11,8 @@ model:
 
 resolver:
   layout: follow-schema
-  dir: graph
-  package: graph
+  dir: adapter/resolver
+  package: resolver
 
 models:
   ID:
