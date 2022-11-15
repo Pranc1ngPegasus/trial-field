@@ -7,6 +7,8 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/Pranc1ngPegasus/middlechain"
+	"github.com/Pranc1ngPegasus/trial-field/adapter/handler/middleware"
+	"github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/google/wire"
 )
 
@@ -24,6 +26,7 @@ type Handler struct {
 }
 
 func NewHandler(
+	logger logger.Logger,
 	schema graphql.ExecutableSchema,
 ) *Handler {
 	mux := http.NewServeMux()
@@ -36,6 +39,10 @@ func NewHandler(
 	mux.HandleFunc("/ping", h.ping)
 	mux.HandleFunc("/graphql", h.graphql)
 	mux.HandleFunc("/play", h.playground)
+
+	h.router = middlechain.Chain(h.router,
+		middleware.Logging(logger),
+	)
 
 	return h
 }
