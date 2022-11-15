@@ -6,5 +6,7 @@ func main() {
 		panic(err)
 	}
 
-	app.logger.Info("Hello, World!", app.logger.Field("config", app.config.Config()))
+	if err := app.server.ListenAndServe(); err != nil {
+		panic(err)
+	}
 }

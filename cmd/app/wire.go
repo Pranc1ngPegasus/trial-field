@@ -4,7 +4,11 @@
 package main
 
 import (
-	domainconfiguration "github.com/Pranc1ngPegasus/trial-field/domain/configuration"
+	"net/http"
+
+	"github.com/Pranc1ngPegasus/trial-field/adapter/handler"
+	"github.com/Pranc1ngPegasus/trial-field/adapter/resolver"
+	"github.com/Pranc1ngPegasus/trial-field/adapter/server"
 	domainlogger "github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/Pranc1ngPegasus/trial-field/infra/configuration"
 	"github.com/Pranc1ngPegasus/trial-field/infra/logger"
@@ -13,7 +17,7 @@ import (
 
 type app struct {
 	logger domainlogger.Logger
-	config domainconfiguration.Configuration
+	server *http.Server
 }
 
 func initialize() (*app, error) {
@@ -21,6 +25,12 @@ func initialize() (*app, error) {
 		logger.NewLoggerSet,
 
 		configuration.NewConfigurationSet,
+
+		resolver.NewSchema,
+
+		handler.NewHandlerSet,
+
+		server.NewServer,
 
 		wire.Struct(new(app), "*"),
 	)

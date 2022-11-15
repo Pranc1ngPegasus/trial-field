@@ -11,5 +11,7 @@ type (
 		Debug bool `mapstructure:"DEBUG"`
 
 		GCPProjectID string `mapstructure:"GCP_PROJECT_ID"`
+
+		ServerPort string `mapstructure:"PORT"`
 	}
 )
