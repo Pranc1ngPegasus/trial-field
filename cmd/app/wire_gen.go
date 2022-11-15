@@ -29,7 +29,7 @@ func initialize() (*app, error) {
 		return nil, err
 	}
 	executableSchema := resolver.NewSchema()
-	handlerHandler := handler.NewHandler(executableSchema)
+	handlerHandler := handler.NewHandler(loggerLogger, executableSchema)
 	httpServer := server.NewServer(loggerLogger, configurationConfiguration, handlerHandler)
 	mainApp := &app{
 		logger: loggerLogger,
