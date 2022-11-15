@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"contrib.go.opencensus.io/exporter/stackdriver"
-	"github.com/Pranc1ngPegasus/golang-template/domain/configuration"
-	"github.com/Pranc1ngPegasus/golang-template/domain/logger"
-	domain "github.com/Pranc1ngPegasus/golang-template/domain/tracer"
+	"github.com/Pranc1ngPegasus/trial-field/domain/configuration"
+	"github.com/Pranc1ngPegasus/trial-field/domain/logger"
+	domain "github.com/Pranc1ngPegasus/trial-field/domain/tracer"
 	"github.com/google/wire"
 	"go.opencensus.io/trace"
 )

@@ -7,10 +7,10 @@
 package main
 
 import (
-	configuration2 "github.com/Pranc1ngPegasus/golang-template/domain/configuration"
-	logger2 "github.com/Pranc1ngPegasus/golang-template/domain/logger"
-	"github.com/Pranc1ngPegasus/golang-template/infra/configuration"
-	"github.com/Pranc1ngPegasus/golang-template/infra/logger"
+	configuration2 "github.com/Pranc1ngPegasus/trial-field/domain/configuration"
+	logger2 "github.com/Pranc1ngPegasus/trial-field/domain/logger"
+	"github.com/Pranc1ngPegasus/trial-field/infra/configuration"
+	"github.com/Pranc1ngPegasus/trial-field/infra/logger"
 )
 
 // Injectors from wire.go:

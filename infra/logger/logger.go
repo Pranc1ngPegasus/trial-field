@@ -3,7 +3,7 @@ package logger
 import (
 	"fmt"
 
-	domain "github.com/Pranc1ngPegasus/golang-template/domain/logger"
+	domain "github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/google/wire"
 	"github.com/samber/lo"
 	"go.uber.org/zap"

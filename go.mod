@@ -1,4 +1,4 @@
-module github.com/Pranc1ngPegasus/golang-template
+module github.com/Pranc1ngPegasus/trial-field
 
 go 1.19
 
