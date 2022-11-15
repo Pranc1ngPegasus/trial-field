@@ -2,6 +2,11 @@
 format:
 	$(call format)
 
+.PHONY: generate.gqlgen
+generate.gqlgen:
+	@go run github.com/99designs/gqlgen generate
+	$(call format)
+
 .PHONY: generate.mock
 generate.mock:
 	@go generate ./domain/...
