@@ -15,7 +15,7 @@ require (
 	github.com/spf13/viper v1.14.0
 	github.com/vektah/gqlparser/v2 v2.5.1
 	go.opencensus.io v0.24.0
-	go.uber.org/zap v1.23.0
+	go.uber.org/zap v1.24.0
 	golang.org/x/tools v0.3.0
 	mvdan.cc/gofumpt v0.4.0
 )
