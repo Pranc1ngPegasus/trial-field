@@ -1,11 +1,13 @@
 package logger
 
 import (
+	"context"
 	"fmt"
 
 	domain "github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/google/wire"
 	"github.com/samber/lo"
+	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 )
 
@@ -40,6 +42,8 @@ func (l *Logger) Field(key string, message interface{}) domain.Field {
 
 func (l *Logger) field(field domain.Field) zap.Field {
 	switch i := field.Interface.(type) {
+	case error:
+		return zap.Error(i)
 	case string:
 		return zap.String(field.Key, i)
 	case int:
@@ -51,20 +55,34 @@ func (l *Logger) field(field domain.Field) zap.Field {
 	}
 }
 
-func (l *Logger) Info(message string, fields ...domain.Field) {
+func (l *Logger) traceFor(ctx context.Context) []domain.Field {
+	span := trace.SpanContextFromContext(ctx)
+
+	return []domain.Field{
+		l.Field("logging.googleapis.com/trace", span.TraceID().String()),
+		l.Field("logging.googleapis.com/spanId", span.SpanID().String()),
+		l.Field("logging.googleapis.com/trace_sampled", span.IsSampled()),
+	}
+}
+
+func (l *Logger) Info(ctx context.Context, message string, fields ...domain.Field) {
+	fields = append(fields, l.traceFor(ctx)...)
+
 	zapfields := lo.Map(fields, func(field domain.Field, _ int) zap.Field {
 		return l.field(field)
 	})
+
+	l.logger.With()
 
 	l.logger.Info(message, zapfields...)
 }
 
-func (l *Logger) Error(message string, err error, fields ...domain.Field) {
+func (l *Logger) Error(ctx context.Context, message string, fields ...domain.Field) {
+	fields = append(fields, l.traceFor(ctx)...)
+
 	zapfields := lo.Map(fields, func(field domain.Field, _ int) zap.Field {
 		return l.field(field)
 	})
-
-	zapfields = append(zapfields, zap.Error(err))
 
 	l.logger.Error(message, zapfields...)
 }

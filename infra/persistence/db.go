@@ -1,6 +1,7 @@
 package persistence
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"net"
@@ -28,12 +29,13 @@ type DB struct {
 }
 
 func NewDB(
+	ctx context.Context,
 	logger logger.Logger,
 	config configuration.Configuration,
 ) (*DB, error) {
 	cfg := config.Config()
 
-	logger.Info("Start RDB connector")
+	logger.Info(ctx, "Start RDB connector")
 
 	driver, err := ocsql.Register("postgres", ocsql.WithAllTraceOptions())
 	if err != nil {
@@ -55,7 +57,7 @@ func NewDB(
 		go func() {
 			for {
 				stats := db.Stats()
-				logger.Info("db stats",
+				logger.Info(ctx, "db stats",
 					logger.Field("max open", stats.MaxOpenConnections),
 					logger.Field("open", stats.OpenConnections),
 					logger.Field("idle", stats.Idle),

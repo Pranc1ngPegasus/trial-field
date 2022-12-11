@@ -43,11 +43,12 @@ func (m *loggingResponseWriter) Write(b []byte) (int, error) {
 func Logging(logger logger.Logger) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			ctx := r.Context()
 			ww := NewLoggingResponseWriter(w)
 			t1 := time.Now()
 
 			defer func() {
-				logger.Info("Served",
+				logger.Info(ctx, "Served",
 					logger.Field("proto", r.Proto),
 					logger.Field("status", r.Method),
 					logger.Field("path", r.URL.Path),

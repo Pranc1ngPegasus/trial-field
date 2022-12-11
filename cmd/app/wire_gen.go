@@ -7,14 +7,17 @@
 package main
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/Pranc1ngPegasus/trial-field/adapter/handler"
 	"github.com/Pranc1ngPegasus/trial-field/adapter/resolver"
 	"github.com/Pranc1ngPegasus/trial-field/adapter/server"
 	logger2 "github.com/Pranc1ngPegasus/trial-field/domain/logger"
+	tracer2 "github.com/Pranc1ngPegasus/trial-field/domain/tracer"
 	"github.com/Pranc1ngPegasus/trial-field/infra/configuration"
 	"github.com/Pranc1ngPegasus/trial-field/infra/logger"
+	"github.com/Pranc1ngPegasus/trial-field/infra/tracer"
 )
 
 // Injectors from wire.go:
@@ -24,15 +27,21 @@ func initialize() (*app, error) {
 	if err != nil {
 		return nil, err
 	}
-	configurationConfiguration, err := configuration.NewConfiguration(loggerLogger)
+	contextContext := context.Background()
+	configurationConfiguration, err := configuration.NewConfiguration(contextContext, loggerLogger)
+	if err != nil {
+		return nil, err
+	}
+	tracerTracer, err := tracer.NewTracer(loggerLogger, configurationConfiguration)
 	if err != nil {
 		return nil, err
 	}
 	executableSchema := resolver.NewSchema()
 	handlerHandler := handler.NewHandler(loggerLogger, executableSchema)
-	httpServer := server.NewServer(loggerLogger, configurationConfiguration, handlerHandler)
+	httpServer := server.NewServer(contextContext, loggerLogger, configurationConfiguration, handlerHandler)
 	mainApp := &app{
 		logger: loggerLogger,
+		tracer: tracerTracer,
 		server: httpServer,
 	}
 	return mainApp, nil
@@ -42,5 +51,6 @@ func initialize() (*app, error) {
 
 type app struct {
 	logger logger2.Logger
+	tracer tracer2.Tracer
 	server *http.Server
 }
