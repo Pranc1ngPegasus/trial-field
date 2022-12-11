@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	domain "github.com/Pranc1ngPegasus/trial-field/domain/configuration"
-	"github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/google/wire"
 	"github.com/spf13/viper"
 )
@@ -23,22 +22,17 @@ type Configuration struct {
 
 func NewConfiguration(
 	ctx context.Context,
-	logger logger.Logger,
 ) (*Configuration, error) {
 	viper.SetConfigFile("sample.env")
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
-		logger.Error(ctx, "failed to load environment variable", logger.Field("err", err))
-
 		return nil, fmt.Errorf("failed to load environment variable: %w", err)
 	}
 
 	var config domain.Config
 
 	if err := viper.Unmarshal(&config); err != nil {
-		logger.Error(ctx, "failed to unmarshal environment variable", logger.Field("err", err))
-
 		return nil, fmt.Errorf("failed to unmarshal environment variable: %w", err)
 	}
 
