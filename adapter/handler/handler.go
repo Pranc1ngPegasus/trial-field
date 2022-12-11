@@ -41,6 +41,7 @@ func NewHandler(
 	mux.HandleFunc("/play", h.playground)
 
 	h.router = middlechain.Chain(h.router,
+		middleware.Tracer,
 		middleware.Logging(logger),
 	)
 
