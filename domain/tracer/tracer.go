@@ -1,6 +1,12 @@
 package tracer
 
+import (
+	"context"
+
+	"go.opentelemetry.io/otel/trace"
+)
+
 type Tracer interface {
-	Start() error
-	Stop() error
+	Tracer() trace.Tracer
+	Stop(context.Context) error
 }
