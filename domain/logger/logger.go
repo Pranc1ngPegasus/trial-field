@@ -2,10 +2,12 @@
 
 package logger
 
+import "context"
+
 type Logger interface {
 	Field(string, interface{}) Field
-	Info(string, ...Field)
-	Error(string, error, ...Field)
+	Info(context.Context, string, ...Field)
+	Error(context.Context, string, ...Field)
 }
 
 type (
