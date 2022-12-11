@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/Pranc1ngPegasus/trial-field/domain/configuration"
 	domain "github.com/Pranc1ngPegasus/trial-field/domain/logger"
 	"github.com/google/wire"
 	"github.com/samber/lo"
@@ -14,6 +15,7 @@ import (
 var _ domain.Logger = (*Logger)(nil)
 
 type Logger struct {
+	config *configuration.Config
 	logger *zap.Logger
 }
 
@@ -22,13 +24,16 @@ var NewLoggerSet = wire.NewSet(
 	NewLogger,
 )
 
-func NewLogger() (*Logger, error) {
+func NewLogger(
+	config configuration.Configuration,
+) (*Logger, error) {
 	log, err := zap.NewProduction()
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize logger: %w", err)
 	}
 
 	return &Logger{
+		config: config.Config(),
 		logger: log,
 	}, nil
 }
@@ -59,7 +64,7 @@ func (l *Logger) traceFor(ctx context.Context) []domain.Field {
 	span := trace.SpanContextFromContext(ctx)
 
 	return []domain.Field{
-		l.Field("logging.googleapis.com/trace", span.TraceID().String()),
+		l.Field("logging.googleapis.com/trace", fmt.Sprintf("projects/%s/traces/%s", l.config.GCPProjectID, span.TraceID().String())),
 		l.Field("logging.googleapis.com/spanId", span.SpanID().String()),
 		l.Field("logging.googleapis.com/trace_sampled", span.IsSampled()),
 	}

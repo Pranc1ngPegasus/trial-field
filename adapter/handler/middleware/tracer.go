@@ -9,7 +9,7 @@ import (
 func Tracer(h http.Handler) http.Handler {
 	return otelhttp.NewHandler(
 		h,
-		"trial-field",
+		"server",
 		otelhttp.WithMessageEvents(
 			otelhttp.ReadEvents,
 			otelhttp.WriteEvents,

@@ -23,12 +23,12 @@ import (
 // Injectors from wire.go:
 
 func initialize() (*app, error) {
-	loggerLogger, err := logger.NewLogger()
+	contextContext := context.Background()
+	configurationConfiguration, err := configuration.NewConfiguration(contextContext)
 	if err != nil {
 		return nil, err
 	}
-	contextContext := context.Background()
-	configurationConfiguration, err := configuration.NewConfiguration(contextContext, loggerLogger)
+	loggerLogger, err := logger.NewLogger(configurationConfiguration)
 	if err != nil {
 		return nil, err
 	}
