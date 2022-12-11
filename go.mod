@@ -5,7 +5,7 @@ go 1.19
 require (
 	contrib.go.opencensus.io/exporter/stackdriver v0.13.14
 	contrib.go.opencensus.io/integrations/ocsql v0.1.7
-	github.com/99designs/gqlgen v0.17.20
+	github.com/99designs/gqlgen v0.17.22
 	github.com/Pranc1ngPegasus/middlechain v0.1.2
 	github.com/cosmtrek/air v1.40.4
 	github.com/golang/mock v1.6.0
