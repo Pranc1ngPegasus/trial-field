@@ -12,7 +12,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/lib/pq v1.10.7
-	github.com/samber/lo v1.36.0
+	github.com/samber/lo v1.37.0
 	github.com/spf13/viper v1.14.0
 	github.com/vektah/gqlparser/v2 v2.5.1
 	go.opentelemetry.io/contrib/detectors/gcp v1.12.0
